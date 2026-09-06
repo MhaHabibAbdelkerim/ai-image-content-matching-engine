@@ -1,6 +1,7 @@
 import os
 
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 DATABASE_URL = os.getenv(
@@ -10,7 +11,8 @@ DATABASE_URL = os.getenv(
 
 engine = create_engine(DATABASE_URL)
 
-
-with engine.connect() as connection:
-    result = connection.execute(text("SELECT 1"))
-    print(result.scalar())
+SessionLocal = sessionmaker(
+    bind=engine,
+    autoflush=False,
+    autocommit=False,
+)
