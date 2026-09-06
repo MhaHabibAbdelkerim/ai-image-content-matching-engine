@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:17
+    container_name: image_matching_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: image_matching
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: image_matching_api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/image_matching
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
