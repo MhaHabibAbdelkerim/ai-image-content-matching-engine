@@ -14,3 +14,4 @@ class Image(Base):
     attributes: Mapped[str | None] = mapped_column(Text, nullable=True)
     caption: Mapped[str | None] = mapped_column(Text, nullable=True)
     confidence: Mapped[float | None] = mapped_column(Float, nullable=True)
+    needs_review: Mapped[bool] = mapped_column(default=False, nullable=False)
