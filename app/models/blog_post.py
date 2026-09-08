@@ -22,6 +22,11 @@ class BlogPost(Base):
         nullable=False,
     )
 
+    subject: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
     embedding: Mapped[list[float] | None] = mapped_column(
         Vector(768),
         nullable=True,

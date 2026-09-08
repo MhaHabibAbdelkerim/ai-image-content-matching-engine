@@ -20,6 +20,7 @@ def create_blog_post(
     db: Session = Depends(get_db),
 ):
     embedding_text = (
+        f"Subject: {post_data.subject}. "
         f"Title: {post_data.title}. "
         f"Content: {post_data.content}"
     )
@@ -29,6 +30,7 @@ def create_blog_post(
     blog_post = BlogPost(
         title=post_data.title,
         content=post_data.content,
+        subject=post_data.subject,
         embedding=embedding,
     )
 
@@ -40,8 +42,10 @@ def create_blog_post(
         "id": blog_post.id,
         "title": blog_post.title,
         "content": blog_post.content,
+        "subject": blog_post.subject,
         "has_embedding": blog_post.embedding is not None,
     }
+
 
 @router.get("/{post_id}/matches")
 def get_matches(
