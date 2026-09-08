@@ -19,7 +19,7 @@ Analyze this image for an image-content matching system.
 Return ONLY valid JSON with exactly these fields:
 
 {
-  "subject": "main subject",
+  "subject": "specific main subject",
   "category": "broad category",
   "attributes": ["attribute 1", "attribute 2"],
   "caption": "short description of the image",
@@ -27,13 +27,19 @@ Return ONLY valid JSON with exactly these fields:
 }
 
 Rules:
-- subject: identify the main subject as specifically as reasonably possible.
-- category: use a broad category such as animal, person, vehicle, food, landscape, building, etc.
-- attributes: list important visible characteristics.
-- caption: write one concise sentence.
-- confidence: a number between 0.0 and 1.0.
+
+- subject MUST identify the specific main subject visible in the image.
+- Never use generic values such as "main subject", "object", "thing", "item", or "unknown".
+- For animals, identify the animal as specifically as possible, such as "fox", "wolf", "lion", "dog", or "cat".
+- For vehicles, identify the type such as "car", "bus", "truck", or "motorcycle".
+- For food, identify the specific food when possible.
+- category MUST be a broad category that matches the subject, such as "animal", "person", "vehicle", "food", "landscape", "building", or "object".
+- attributes MUST contain important visible characteristics.
+- caption MUST be one concise sentence describing the image.
+- confidence MUST be a number between 0.0 and 1.0.
 - Be conservative with confidence.
-- Do not include markdown or ``` around the JSON.
+- Do not include markdown.
+- Do not include ``` around the JSON.
 """
 
     response = requests.post(
@@ -52,11 +58,12 @@ Rules:
     ollama_result = response.json()
     raw_text = ollama_result["response"].strip()
 
-    print("RAW OLLAME RESPONSE:")
+    print("RAW OLLAMA RESPONSE:")
     print(raw_text)
 
     if raw_text.startswith("```"):
         raw_text = raw_text.strip("`")
+
         if raw_text.startswith("json"):
             raw_text = raw_text[4:].strip()
 
