@@ -6,14 +6,13 @@ from sqlalchemy.orm import Session
 from app.models.image import Image
 from app.models.job import ImageProcessingJob
 from app.services.vision_service import analyze_image
-
+from app.services.embedding_service import generate_embedding
 
 logger = logging.getLogger(__name__)
 
 VISION_REVIEW_THRESHOLD = float(
     os.getenv("VISION_REVIEW_THRESHOLD", "0.80")
 )
-
 
 def process_image_job(
     job_id: int,
@@ -61,6 +60,15 @@ def process_image_job(
         )
         image.caption = vision_result.caption
         image.confidence = vision_result.confidence
+
+        metadata_text = (
+            f"Subject: {image.subject}."
+            f"Category: {image.category}."
+            f"Attributes: {image.category}."
+            f"Caption: {image.caption}"
+        )
+
+        image.embedding = generate_embedding(metadata_text)
 
         image.needs_review = (
             vision_result.confidence < VISION_REVIEW_THRESHOLD
