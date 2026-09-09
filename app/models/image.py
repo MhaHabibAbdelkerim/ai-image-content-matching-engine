@@ -1,4 +1,6 @@
-from sqlalchemy import String, Float, Text
+from datetime import datetime
+
+from sqlalchemy import String, Float, Text, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 from pgvector.sqlalchemy import Vector
 
@@ -16,6 +18,22 @@ class Image(Base):
     caption: Mapped[str | None] = mapped_column(Text, nullable=True)
     confidence: Mapped[float | None] = mapped_column(Float, nullable=True)
     needs_review: Mapped[bool] = mapped_column(default=False, nullable=False)
+
+    review_status: Mapped[str] = mapped_column(
+        String(20),
+        default="pending",
+        nullable=False,
+    )
+
+    review_reason: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
+
+    reviewed_at: Mapped[datetime | None] = mapped_column(
+        DateTime,
+        nullable=True,
+    )
 
     embedding: Mapped[list[float] | None] = mapped_column(
         Vector(768),
