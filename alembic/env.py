@@ -9,6 +9,7 @@ from app.models.image import Image
 from app.models.job import ImageProcessingJob
 from app.models.blog_post import BlogPost
 from app.models.idempotency import IdempotencyKey
+from app.models.ai_usage import AIUsageLog
 
 config = context.config
 

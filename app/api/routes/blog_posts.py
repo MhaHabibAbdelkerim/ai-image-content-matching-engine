@@ -25,7 +25,10 @@ def create_blog_post(
         f"Content: {post_data.content}"
     )
 
-    embedding = generate_embedding(embedding_text)
+    embedding = generate_embedding(
+        embedding_text,
+        db,
+    )
 
     blog_post = BlogPost(
         title=post_data.title,
