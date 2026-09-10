@@ -8,7 +8,7 @@ from app.db.base import Base
 from app.models.image import Image  
 from app.models.job import ImageProcessingJob
 from app.models.blog_post import BlogPost
-
+from app.models.idempotency import IdempotencyKey
 
 config = context.config
 
