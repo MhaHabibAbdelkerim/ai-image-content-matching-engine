@@ -1,0 +1,83 @@
+[
+  {
+    "name": "fox_match",
+    "type": "match",
+    "blog_subject": "fox",
+    "expected_subject": "fox",
+    "expected_behavior": "accepted",
+    "description": "Fox article should return a fox as the top accepted match."
+  },
+  {
+    "name": "wolf_match",
+    "type": "match",
+    "blog_subject": "wolf",
+    "expected_subject": "wolf",
+    "expected_behavior": "accepted",
+    "description": "Wolf article should return a wolf as the top accepted match."
+  },
+  {
+    "name": "lion_match",
+    "type": "match",
+    "blog_subject": "lion",
+    "expected_subject": "lion",
+    "expected_behavior": "accepted",
+    "description": "Lion article should return a lion as the top accepted match."
+  },
+  {
+    "name": "fox_wolf_mismatch",
+    "type": "mismatch",
+    "blog_subject": "fox",
+    "expected_subject": "wolf",
+    "expected_behavior": "rejected",
+    "description": "Wolf image must be rejected when the article expects a fox."
+  },
+  {
+    "name": "fox_lion_mismatch",
+    "type": "mismatch",
+    "blog_subject": "fox",
+    "expected_subject": "Lion",
+    "expected_behavior": "rejected",
+    "description": "Lion image must be rejected when the article expects a fox."
+  },
+  {
+    "name": "wolf_fox_mismatch",
+    "type": "mismatch",
+    "blog_subject": "wolf",
+    "expected_subject": "fox",
+    "expected_behavior": "rejected",
+    "description": "Fox image must be rejected when the article expects a wolf."
+  },
+  {
+    "name": "lion_fox_mismatch",
+    "type": "mismatch",
+    "blog_subject": "lion",
+    "expected_subject": "fox",
+    "expected_behavior": "rejected",
+    "description": "Fox image must be rejected when the article expects a lion."
+  },
+  {
+    "name": "low_confidence_organ_pipe",
+    "type": "low_confidence",
+    "blog_subject": "organ pipe",
+    "expected_subject": "organ pipe",
+    "image_id": 4,
+    "expected_behavior": "rejected",
+    "description": "Image 4 is a low-confidence organ pipe image and must not be accepted."
+  },
+  {
+    "name": "dog_no_confident_match",
+    "type": "no_match",
+    "blog_subject": "dog",
+    "expected_subject": "dog",
+    "expected_behavior": "no_confident_match",
+    "description": "No dog image exists, so the system should return no confident match."
+  },
+  {
+    "name": "cat_no_confident_match",
+    "type": "no_match",
+    "blog_subject": "cat",
+    "expected_subject": "cat",
+    "expected_behavior": "no_confident_match",
+    "description": "No cat image exists, so the system should return no confident match."
+  }
+]
