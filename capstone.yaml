@@ -1,0 +1,122 @@
+project:
+  name: ai-image-content-matching-engine
+  title: AI Image Understanding & Content Matching Engine
+  description: >
+    A backend AI system that analyzes images, extracts structured metadata,
+    generates embeddings, and matches images to blog posts using semantic
+    similarity with subject-level mismatch protection.
+
+stack:
+  backend: FastAPI
+  database: PostgreSQL
+  vector_database: pgvector
+  orm: SQLAlchemy
+  migrations: Alembic
+  validation: Pydantic
+  vision_model: Ollama LLaVA
+  embedding_model: Ollama nomic-embed-text
+  testing: pytest
+  containerization: Docker
+
+features:
+  image_ingestion: true
+  structured_vision_output: true
+  confidence_scoring: true
+  low_confidence_review: true
+  background_processing: true
+  retry_handling: true
+  exponential_backoff: true
+  semantic_embeddings: true
+  vector_similarity_search: true
+  mismatch_guard: true
+  human_review_api: true
+  idempotency: true
+  database_indexes: true
+  ai_usage_tracking: true
+  ai_budget_guard: true
+  automated_evaluation: true
+  automated_tests: true
+
+vision_output:
+  fields:
+    - subject
+    - category
+    - attributes
+    - caption
+    - confidence
+  schema_validated: true
+
+matching:
+  similarity_metric: cosine_similarity
+  similarity_threshold: 0.70
+  minimum_image_confidence: 0.70
+  subject_matching: exact_case_insensitive
+  rejection_explanations: true
+  no_confident_match: true
+
+background_jobs:
+  maximum_attempts: 3
+  retryable_errors:
+    - connection_error
+    - timeout
+    - http_429
+    - http_5xx
+  permanent_errors:
+    - http_4xx_except_429
+  exponential_backoff: true
+  jitter: true
+
+persistence:
+  database: PostgreSQL
+  vector_extension: pgvector
+  migrations: Alembic
+  indexed_fields:
+    - image_processing_jobs.image_id
+    - images.review_status
+    - images.needs_review
+
+reliability:
+  idempotency_keys: true
+  request_deduplication: true
+  background_job_status_tracking: true
+  permanent_failure_alert_logging: true
+  environment_based_configuration: true
+
+ai_operations:
+  usage_logging: true
+  duration_tracking: true
+  success_failure_tracking: true
+  estimated_cost_tracking: true
+  budget_guard: true
+  configurable_budget: true
+
+evaluation:
+  dataset: evaluation/dataset.json
+  evaluator: evaluation/evaluate.py
+  test_cases: 10
+  top_1_precision: "100%"
+  mismatch_guard: "4/4 passed"
+  low_confidence_guard: "1/1 passed"
+  no_confident_match: "2/2 passed"
+  overall: "10/10 tests passed"
+
+testing:
+  framework: pytest
+  test_directory: tests
+  automated_test_count: 14
+  result: "14 passed"
+
+api:
+  image_endpoints:
+    - "POST /images/"
+    - "GET /images/{image_id}"
+    - "GET /images/jobs/{job_id}"
+    - "POST /images/{image_id}/review"
+    - "GET /images/{image_id}/review"
+    - "GET /images/review/pending"
+  blog_post_endpoints:
+    - "POST /blog-posts/"
+    - "GET /blog-posts/{post_id}/matches"
+  system_endpoints:
+    - "GET /"
+    - "GET /health"
