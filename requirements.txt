@@ -6,3 +6,5 @@ alembic
 google-genai
 requests
 pgvector
+pytest
+httpx

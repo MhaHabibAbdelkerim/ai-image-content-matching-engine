@@ -19,7 +19,6 @@ def root():
         "message": "AI Image Content Matching Engine API"
     }
 
-
 @app.get("/health")
 def health():
     return {
